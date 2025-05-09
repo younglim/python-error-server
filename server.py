@@ -1,25 +1,12 @@
 #!/usr/bin/env python3
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from http import HTTPStatus
 
 HOST = 'localhost'
 PORT = 8000
 
 # Map paths → status codes
-STATUS_CODES = {
-    'page301': 301,
-    'page302': 302,
-    'page303': 303,
-    'page307': 307,
-    'page308': 308,
-    'page400': 400,
-    'page401': 401,
-    'page403': 403,
-    'page404': 404,
-    'page500': 500,
-    'page502': 502,
-    'page503': 503,
-    'page504': 504,
-}
+STATUS_CODES = {f'page{status.value}': status.value for status in HTTPStatus}
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -115,3 +102,5 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("\nShutting down.")
         server.server_close()
+
+
